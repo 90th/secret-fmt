@@ -1,0 +1,27 @@
+[package]
+name = "secret-fmt"
+version = "0.1.0"
+edition = "2021"
+description = "A zero-dependency wrapper to prevent accidental logging of sensitive data (PII, secrets)"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/90th/secret-fmt"
+documentation = "https://docs.rs/secret-fmt"
+rust-version = "1.56"
+authors = ["90th"]
+readme = "README.md"
+keywords = ["redact", "logging", "secret", "pii", "no_std"]
+categories = ["rust-patterns", "no-std", "development-tools::debugging"]
+
+[features]
+default = []
+# Provide optional serde support where serialization yields "[REDACTED]"
+# to prevent secrets leaking in JSON responses, while deserialization
+# parses the actual secret normally.
+serde = ["dep:serde"]
+
+[dependencies]
+serde = { version = "1.0", optional = true, default-features = false }
+
+[dev-dependencies]
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
